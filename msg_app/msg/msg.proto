@@ -1,0 +1,48 @@
+
+
+//edition = "2023";
+
+//option features.field_presence = IMPLICIT;
+//option go_package = "google.golang.org/grpc/examples/route_guide/routeguide";
+//option java_multiple_files = true;
+//option java_package = "io.grpc.examples.routeguide";
+//option java_outer_classname = "RouteGuideProto";
+
+option go_package = "./msg";
+
+
+package msg;
+
+// Interface exported by the server.
+service Messenger {
+
+  rpc GetTopics(Filter) returns (stream Topic) {}
+  rpc GetMsgs(Topic) returns (stream Msg) {}
+  rpc GetTopic(ID) returns (Topic) {}
+  rpc GetMsg(ID) returns (Msg) {}
+  rpc AddMsg(Msg) returns (Msg) {}
+  rpc AddTopic(Topic) returns (Topic) {}
+  rpc DelTopic(Topic) returns (Topic) {}
+  rpc DelMsg(Msg) returns (Msg) {}
+
+}
+
+message ID {
+  required int32 id = 1;
+}
+
+message Msg {
+  required int32 id = 1;
+  required int32 topic = 2;
+  required string content = 3;
+}
+
+message Filter {
+  required bool enabled = 1;
+  required string filter = 2;
+}
+
+message Topic {
+  required int32 id = 1;
+  required string name = 2;
+}
